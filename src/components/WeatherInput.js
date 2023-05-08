@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useReducer } from "react";
 import axios from "axios";
 import classes from "./WeatherInput.module.css";
 import {
@@ -8,7 +8,36 @@ import {
   WiSnow,
   WiTornado,
   WiThermometer,
+  WiDust,
+  WiCloudy,
+  WiDaySunny,
 } from "react-icons/wi";
+
+const iconReducer = (state, action) => {
+  if (action.type === "Thunderstorm") {
+    return { value: <WiThunderstorm className={classes["weather-icon"]} /> };
+  }
+  if (action.type === "Drizzle") {
+    return { value: <WiSleet className={classes["weather-icon"]} /> };
+  }
+  if (action.type === "Rain") {
+    return { value: <WiRain className={classes["weather-icon"]} /> };
+  }
+  if (action.type === "Snow") {
+    return { value: <WiSnow className={classes["weather-icon"]} /> };
+  }
+  if (action.type === "Clouds") {
+    return { value: <WiCloudy className={classes["weather-icon"]} /> };
+  }
+  if (action.type === "Clear") {
+    return { value: <WiDaySunny className={classes["weather-icon"]} /> };
+  }
+  if (action.type === "Tornado") {
+    return { value: <WiTornado className={classes["weather-icon"]} /> };
+  }
+
+  return { value: <WiDust className={classes["weather-icon"]} /> };
+};
 
 export const weatherAPI = axios.create({
   baseURL: "https://api.openweathermap.org/data/2.5/",
@@ -23,6 +52,10 @@ const WeatherInput = () => {
   const [units, setUnits] = useState("metric");
   const [error, setError] = useState(false);
 
+  const [iconState, dispatchIcon] = useReducer(iconReducer, {
+    value: null,
+  });
+
   const searchPressed = async () => {
     const response = await weatherAPI
       .get(`weather?q=${search}&units=${units}`)
@@ -34,6 +67,7 @@ const WeatherInput = () => {
       const responseData = await response.data;
       setWeather(responseData);
       setError(false);
+      dispatchIcon({ type: responseData.weather[0].main });
     }
   };
 
@@ -45,7 +79,7 @@ const WeatherInput = () => {
   const weatherDefined =
     typeof weather.main !== "undefined" ? (
       <div className={classes["weather-data"]}>
-        <WiThunderstorm className={classes["weather-icon"]} />
+        {iconState.value}
         <p>
           {"City: "}
           {weather.name}
