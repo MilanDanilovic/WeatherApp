@@ -1,0 +1,27 @@
+.input-controls {
+  display: flex;
+}
+.input-control-item {
+  margin-right: 10px;
+  padding: 10px;
+  border: 0;
+  box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
+  border-radius: 10px;
+}
+.search-btn {
+  color: white;
+  background: linear-gradient(45deg, #0ea39a, #08544f);
+}
+.weather-data {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(45deg, #0ea39a, transparent);
+  margin-top: 50px;
+  border-radius: 20px;
+}
+.weather-icon {
+  font-size: 100px;
+}
