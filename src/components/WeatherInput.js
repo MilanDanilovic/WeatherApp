@@ -1,4 +1,4 @@
-import { useState, useReducer, useRef } from "react";
+import { useState, useReducer, useRef, useEffect } from "react";
 import axios from "axios";
 import classes from "./WeatherInput.module.css";
 import {
@@ -90,6 +90,21 @@ const WeatherInput = () => {
     fetchWeatherData();
     fetchForecastData();
   };
+
+  useEffect(() => {
+    const weatherArray = [];
+    const oldData = JSON.parse(localStorage.getItem("weather"));
+
+    if (Array.isArray(oldData)) {
+      weatherArray.push(...oldData);
+    }
+
+    if (Object.keys(weather).length !== 0) {
+      let weatherObj = { units: units.current.value, ...weather };
+      weatherArray.push(weatherObj);
+      localStorage.setItem("weather", JSON.stringify(weatherArray));
+    }
+  }, [weather]);
 
   const weatherDefined =
     typeof weather.main !== "undefined" ? (
