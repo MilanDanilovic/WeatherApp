@@ -10,12 +10,12 @@ const Forecast = (props) => {
     const forecastItems = [];
     let temperature = props.forecast.list[0].main.temp;
     let dayName = getDayName(new Date(props.forecast.list[0].dt_txt));
-    let j = 1;
+    let j = 0;
     for (let i = 1; i < props.forecast.list.length; i++) {
       temperature += props.forecast.list[i].main.temp;
       j++;
       let currentDay = getDayName(new Date(props.forecast.list[i].dt_txt));
-      if (dayName !== currentDay) {
+      if (dayName !== currentDay || i === props.forecast.list.length - 1) {
         let forecastItem = props.forecast.list[i - 1];
         forecastItem.main.temp = (temperature / j).toFixed(2);
         forecastItems.push(
