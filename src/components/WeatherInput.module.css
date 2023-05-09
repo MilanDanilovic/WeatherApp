@@ -26,3 +26,10 @@
 .weather-icon {
   font-size: 100px;
 }
+.inline-weather-icon {
+  font-size: 20px;
+}
+.main-paragrah {
+  display: flex;
+  align-items: center;
+}

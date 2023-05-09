@@ -11,6 +11,7 @@ import {
   WiDust,
   WiCloudy,
   WiDaySunny,
+  WiHumidity,
 } from "react-icons/wi";
 
 const iconReducer = (state, action) => {
@@ -88,16 +89,17 @@ const WeatherInput = () => {
           {weather.name}
         </p>
 
-        <p>
+        <p className={classes["main-paragrah"]}>
           {"Temperature: "}
           {weather.main.temp}
           {units === "metric" ? "°C" : "°F"}
+          <WiThermometer className={classes["inline-weather-icon"]} />
         </p>
-
-        <p>
-          {"Weather status:"}
-          {weather.weather[0].main}
+        <p className={classes["main-paragrah"]}>
+          {"Humidity:" + weather.main.humidity + " %"}{" "}
+          <WiHumidity className={classes["inline-weather-icon"]} />
         </p>
+        <p>{"Weather status: " + weather.weather[0].main}</p>
         <p>
           {"Description: "}
           {weather.weather[0].description}
