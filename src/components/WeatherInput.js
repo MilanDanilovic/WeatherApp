@@ -1,4 +1,4 @@
-import { useState, useReducer, useEffect } from "react";
+import { useState, useReducer, useRef } from "react";
 import axios from "axios";
 import classes from "./WeatherInput.module.css";
 import {
@@ -13,6 +13,7 @@ import {
   WiDaySunny,
   WiHumidity,
 } from "react-icons/wi";
+import Forecast from "./Forecast";
 
 const iconReducer = (state, action) => {
   if (action.type === "Thunderstorm") {
@@ -48,18 +49,18 @@ export const weatherAPI = axios.create({
 });
 
 const WeatherInput = () => {
-  const [search, setSearch] = useState("");
+  const search = useRef();
   const [weather, setWeather] = useState({});
-  const [units, setUnits] = useState("metric");
+  const units = useRef();
   const [error, setError] = useState(false);
-
+  const [forecast, setForecast] = useState({});
   const [iconState, dispatchIcon] = useReducer(iconReducer, {
     value: null,
   });
 
   const fetchWeatherData = async () => {
     const response = await weatherAPI
-      .get(`weather?q=${search}&units=${units}`)
+      .get(`weather?q=${search.current.value}&units=${units.current.value}`)
       .catch((error) => {
         setError(true);
       });
@@ -72,13 +73,23 @@ const WeatherInput = () => {
     }
   };
 
-  const unitChangeHandler = (event) => {
-    setUnits(event.target.value);
+  const fetchForecastData = async () => {
+    const response = await weatherAPI
+      .get(`forecast?q=${search.current.value}&units=${units.current.value}`)
+      .catch((error) => {
+        setError(true);
+      });
+    if (response) {
+      const responseData = await response.data;
+      setForecast(responseData);
+      setError(false);
+    }
   };
 
-  useEffect(() => {
+  const fetchData = async () => {
     fetchWeatherData();
-  }, [units]);
+    fetchForecastData();
+  };
 
   const weatherDefined =
     typeof weather.main !== "undefined" ? (
@@ -92,7 +103,7 @@ const WeatherInput = () => {
         <p className={classes["main-paragrah"]}>
           <span className={classes["main-property-desc"]}>Temperature: </span>
           {weather.main.temp}
-          {units === "metric" ? "°C" : "°F"}
+          {units.current.value === "metric" ? "°C" : "°F"}
           <WiThermometer className={classes["inline-weather-icon"]} />
         </p>
         <p className={classes["main-paragrah"]}>
@@ -121,27 +132,30 @@ const WeatherInput = () => {
         <input
           type="text"
           placeholder="Enter city or town"
-          onChange={(e) => setSearch(e.target.value)}
+          ref={search}
           className={classes["input-control-item"]}
         />
         <button
-          onClick={fetchWeatherData}
+          onClick={fetchData}
           className={
             classes["input-control-item"] + " " + classes["search-btn"]
           }
         >
           Search
         </button>
-        <select
-          onChange={unitChangeHandler}
-          className={classes["input-control-item"]}
-        >
+        <select ref={units} className={classes["input-control-item"]}>
           <option value="metric">Celsius</option>
           <option value="imperial">Farenheit</option>
         </select>
       </div>
       {error && <p>Please provide city name!</p>}
       {!error && weatherDefined}
+      {!error && (
+        <Forecast
+          forecast={forecast}
+          units={units.current ? units.current.value : ""}
+        />
+      )}
     </>
   );
 };

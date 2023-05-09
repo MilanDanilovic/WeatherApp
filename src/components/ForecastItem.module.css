@@ -1,0 +1,12 @@
+.weather-icon {
+  font-size: 100px;
+}
+.item-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: aqua 1px solid;
+  border-radius: 20px;
+  background: linear-gradient(45deg, #00000021, #00000024);
+  backdrop-filter: blur(10px);
+}

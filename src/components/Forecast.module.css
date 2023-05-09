@@ -1,0 +1,10 @@
+.forecast-wrapper {
+  display: flex;
+  flex-direction: row;
+  margin-top: 40px;
+  padding: 40px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #72edf25c 10%, #5151e5 100%);
+  backdrop-filter: blur(10px);
+  gap: 10px;
+}

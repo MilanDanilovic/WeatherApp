@@ -17,14 +17,14 @@
 }
 .weather-data {
   padding: 10px;
-  font-size: 18px;
+  font-size: 15px;
   display: flex;
   flex-direction: column;
   width: 300px;
   justify-content: center;
   align-items: center;
   background: linear-gradient(135deg, #72edf2 10%, #5151e5 100%);
-  margin-top: 50px;
+  margin-top: 40px;
   border-radius: 20px;
   backdrop-filter: blur(10px);
 }
