@@ -24,7 +24,7 @@ const History = () => {
   const historyItems = weatherData
     .slice(0)
     .reverse()
-    .map((weather) => <HistoryItem historyData={weather} />);
+    .map((weather) => <HistoryItem key={weather.dt} historyData={weather} />);
   return (
     <div className={classes["history-wrapper"]}>
       {!isEmpty && (
