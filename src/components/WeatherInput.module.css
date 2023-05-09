@@ -2,6 +2,7 @@
   display: flex;
 }
 .input-control-item {
+  font-size: 18px;
   margin-right: 10px;
   padding: 10px;
   border: 0;
@@ -9,10 +10,14 @@
   border-radius: 10px;
 }
 .search-btn {
+  padding-left: 16px;
+  padding-right: 16px;
   color: white;
   background: linear-gradient(135deg, #72edf2 10%, #5151e5 100%);
 }
 .weather-data {
+  padding: 10px;
+  font-size: 18px;
   display: flex;
   flex-direction: column;
   width: 300px;
