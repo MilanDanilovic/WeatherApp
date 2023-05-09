@@ -1,4 +1,4 @@
-import { useState, useReducer } from "react";
+import { useState, useReducer, useEffect } from "react";
 import axios from "axios";
 import classes from "./WeatherInput.module.css";
 import {
@@ -56,7 +56,7 @@ const WeatherInput = () => {
     value: null,
   });
 
-  const searchPressed = async () => {
+  const fetchWeatherData = async () => {
     const response = await weatherAPI
       .get(`weather?q=${search}&units=${units}`)
       .catch((error) => {
@@ -72,9 +72,12 @@ const WeatherInput = () => {
   };
 
   const unitChangeHandler = (event) => {
-    setWeather("undefined");
     setUnits(event.target.value);
   };
+
+  useEffect(() => {
+    fetchWeatherData();
+  }, [units]);
 
   const weatherDefined =
     typeof weather.main !== "undefined" ? (
@@ -114,7 +117,7 @@ const WeatherInput = () => {
           className={classes["input-control-item"]}
         />
         <button
-          onClick={searchPressed}
+          onClick={fetchWeatherData}
           className={
             classes["input-control-item"] + " " + classes["search-btn"]
           }

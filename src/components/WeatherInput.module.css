@@ -21,6 +21,7 @@
   background: linear-gradient(45deg, #0ea39a, transparent);
   margin-top: 50px;
   border-radius: 20px;
+  backdrop-filter: blur(10px);
 }
 .weather-icon {
   font-size: 100px;
