@@ -12,10 +12,12 @@ body {
   margin: 0;
   background-color: #0a0b2c;
   color: white;
+  font-family: "Roboto";
 }
 .h1-weather {
   font-size: 50px;
   line-height: 50px;
+  text-transform: uppercase;
 }
 .main-section {
   display: flex;
