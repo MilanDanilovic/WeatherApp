@@ -85,23 +85,29 @@ const WeatherInput = () => {
       <div className={classes["weather-data"]}>
         {iconState.value}
         <p>
-          {"City: "}
+          <span style={{ marginRight: "10px" }}>City: </span>
           {weather.name}
         </p>
 
         <p className={classes["main-paragrah"]}>
-          {"Temperature: "}
+          <span className={classes["main-property-desc"]}>Temperature: </span>
           {weather.main.temp}
           {units === "metric" ? "°C" : "°F"}
           <WiThermometer className={classes["inline-weather-icon"]} />
         </p>
         <p className={classes["main-paragrah"]}>
-          {"Humidity:" + weather.main.humidity + " %"}{" "}
+          <span className={classes["main-property-desc"]}>Humidity: </span>
+          {weather.main.humidity + " %"}{" "}
           <WiHumidity className={classes["inline-weather-icon"]} />
         </p>
-        <p>{"Weather status: " + weather.weather[0].main}</p>
         <p>
-          {"Description: "}
+          <span className={classes["main-property-desc"]}>
+            Weather status:{" "}
+          </span>{" "}
+          {weather.weather[0].main}
+        </p>
+        <p>
+          <span className={classes["main-property-desc"]}>Description: </span>
           {weather.weather[0].description}
         </p>
       </div>
@@ -114,7 +120,7 @@ const WeatherInput = () => {
       <div className={classes["input-controls"]}>
         <input
           type="text"
-          placeholder="Enter city/town..."
+          placeholder="Enter city or town"
           onChange={(e) => setSearch(e.target.value)}
           className={classes["input-control-item"]}
         />
