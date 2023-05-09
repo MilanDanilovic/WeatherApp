@@ -6,6 +6,7 @@
 
 html {
   font-family: "Noto Sans JP", sans-serif;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -19,9 +20,20 @@ body {
   line-height: 50px;
   text-transform: uppercase;
 }
+@media only screen and (max-width: 600px) {
+  .h1-weather {
+    font-size: 35px;
+    line-height: 35px;
+    text-transform: uppercase;
+  }
+}
 .main-section {
   display: flex;
   align-items: center;
   padding-bottom: 50px;
   flex-direction: column;
+}
+.no-page {
+  margin: 0 auto;
+  width: 50%;
 }

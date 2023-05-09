@@ -1,9 +1,18 @@
 .input-controls {
   display: flex;
+  gap: 15px;
+}
+@media only screen and (max-width: 600px) {
+  .input-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+  }
 }
 .input-control-item {
   font-size: 18px;
-  margin-right: 10px;
   padding: 10px;
   border: 0;
   box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);

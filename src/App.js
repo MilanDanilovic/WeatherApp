@@ -1,13 +1,20 @@
-import WeatherInput from "./components/WeatherInput";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Layout from "./pages/Layout";
+import Home from "./pages/Home";
+import History from "./pages/History";
+import NoPage from "./pages/NoPage";
 
 function App() {
   return (
-    <div className="App">
-      <section className="main-section">
-        <h1 className="h1-weather">Weather App</h1>
-        <WeatherInput />
-      </section>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="history" element={<History />} />
+          <Route path="*" element={<NoPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
